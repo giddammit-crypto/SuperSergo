@@ -2472,6 +2472,188 @@ function createProjectileFloppyNode() {
   return n;
 }
 
+// ============================================================================
+// 4. START MENU 3D DIORAMA + MOTION TRAIL / SHOCKWAVE RING / PARTICLE POOLS
+// ============================================================================
+const worldRoot = new Node3D('worldRoot');
+let parallaxFarNode = new Node3D('parallaxFar');
+let parallaxMidNode = new Node3D('parallaxMid');
+let levelNode = new Node3D('levelNode');
+worldRoot.add(parallaxFarNode);
+worldRoot.add(parallaxMidNode);
+worldRoot.add(levelNode);
+
+const seryozha = createSeryozhaRig();
+worldRoot.add(seryozha.root);
+
+const menuPropsNode = new Node3D('menuProps');
+worldRoot.add(menuPropsNode);
+
+(() => {
+  menuPropsNode.addBox(-2.8, 0.04, 0.5, 9.2, 0.08, 5.0, '#7f1d1d', { tex: 6 });
+  menuPropsNode.addBox(-2.8, 0.06, 0.5, 8.4, 0.08, 4.2, '#991b1b', { tex: 6 });
+  menuPropsNode.addBox(-2.8, 0.07, 0.5, 7.8, 0.08, 3.6, '#b45309', { tex: 1 });
+
+  menuPropsNode.addBox(-4.8, 1.55, 0.8, 3.6, 0.26, 2.4, '#8c5828', { tex: 2 });
+  menuPropsNode.addBox(-4.8, 1.32, 0.8, 3.3, 0.28, 2.1, '#6b3f19', { tex: 2 });
+  menuPropsNode.addBox(-6.3, 0.75, 1.75, 0.34, 1.5, 0.34, '#573314', { tex: 2 });
+  menuPropsNode.addBox(-3.3, 0.75, 1.75, 0.34, 1.5, 0.34, '#573314', { tex: 2 });
+  menuPropsNode.addBox(-6.3, 0.75, -0.15, 0.34, 1.5, 0.34, '#573314', { tex: 2 });
+  menuPropsNode.addBox(-3.3, 0.75, -0.15, 0.34, 1.5, 0.34, '#573314', { tex: 2 });
+
+  const mon = menuPropsNode.add(new Node3D('menuMonitor'));
+  mon.pos = [-5.4, 1.68, 0.55];
+  mon.rot = [0, 0.42, 0];
+  mon.addBox(0, 0.12, 0, 0.65, 0.22, 0.75, '#334155', { tex: 7 });
+  mon.addBox(0.15, 0.88, 0, 0.32, 1.32, 1.42, '#787570', { tex: 7 });
+  mon.addBox(-0.22, 0.88, 0, 0.50, 1.15, 1.20, '#27272a', { tex: 7 });
+  mon.addBox(-0.58, 0.85, 0, 0.42, 0.90, 0.95, '#18181b', { tex: 7 });
+  mon.addBox(0.32, 0.88, 0, 0.06, 1.05, 1.15, '#0f172a');
+  mon.addBox(0.35, 1.12, 0.15, 0.05, 0.11, 0.70, '#facc15', { emissive: 0.95 });
+  mon.addBox(0.35, 0.94, 0.05, 0.05, 0.11, 0.85, '#4ade80', { emissive: 0.95 });
+  mon.addBox(0.35, 0.76, 0.10, 0.05, 0.11, 0.75, '#38bdf8', { emissive: 0.95 });
+  mon.addBox(0.33, 0.30, -0.50, 0.06, 0.09, 0.11, '#22c55e', { emissive: 1.0 });
+
+  menuPropsNode.addBox(-3.9, 1.72, 0.65, 0.76, 0.11, 1.15, '#64748b', { ry: 0.32, tex: 7 });
+  menuPropsNode.addBox(-5.6, 1.75, 1.48, 0.78, 0.16, 0.88, '#2d5a27', { ry: 0.22 });
+  menuPropsNode.addBox(-5.6, 1.90, 1.48, 0.72, 0.16, 0.82, '#8c3322', { ry: 0.05 });
+  menuPropsNode.addBox(-4.1, 1.73, 1.52, 0.70, 0.10, 0.82, '#f8fafc', { ry: -0.18 });
+
+  menuPropsNode.addBox(-4.6, 1.45, -1.1, 2.4, 0.24, 1.5, '#78491f', { tex: 2 });
+  menuPropsNode.addBox(-4.6, 2.18, -1.1, 1.25, 1.25, 0.88, '#5e635b', { tex: 1 });
+  menuPropsNode.addBox(-4.6, 2.00, -0.62, 1.05, 0.72, 0.24, '#6d7369', { tex: 1 });
+
+  const ch = menuPropsNode.add(new Node3D('menuChair'));
+  ch.pos = [-1.4, 0, -0.55];
+  ch.rot = [0, -0.25, 0];
+  ch.addBox(0, 1.10, 0, 1.45, 0.20, 1.45, '#6b4423', { tex: 2 });
+  ch.addBox(-0.58, 0.55, -0.58, 0.22, 1.10, 0.22, '#59371b', { tex: 2 });
+  ch.addBox(0.58, 0.55, -0.58, 0.22, 1.10, 0.22, '#59371b', { tex: 2 });
+  ch.addBox(-0.58, 0.55, 0.58, 0.22, 1.10, 0.22, '#59371b', { tex: 2 });
+  ch.addBox(0.58, 0.55, 0.58, 0.22, 1.10, 0.22, '#59371b', { tex: 2 });
+  ch.addBox(0, 1.90, -0.62, 1.40, 1.45, 0.20, '#754b27', { tex: 2 });
+
+  menuPropsNode.addBox(0.45, 1.0, -0.8, 1.1, 2.0, 1.1, '#5c3a1e', { tex: 2 });
+  menuPropsNode.addBox(0.45, 2.15, -0.8, 0.42, 0.32, 0.42, '#d97706');
+  menuPropsNode.addBox(0.45, 2.50, -0.8, 0.88, 0.38, 0.60, '#16a34a', { emissive: 0.9 });
+
+  const PIXEL_FONT = {
+    'С': [" 1111","11  1","11   ","11   ","11   ","11  1"," 1111"],
+    'у': ["11  1","11  1","11  1"," 1111","   11","1  11","1111 "],
+    'п': ["11111","11 11","11 11","11 11","11 11","11 11","11 11"],
+    'е': [" 111 ","11 11","11111","11   ","11  1"," 1111","     "],
+    'р': ["1111 ","11 11","11 11","1111 ","11   ","11   ","11   "],
+    'ж': ["11 1 11","11 1 11"," 11111 ","  111  "," 11111 ","11 1 11","11 1 11"],
+    'а': [" 1111","   11"," 1111","11 11","11 11"," 1111","     "],
+    ' ': ["   ","   ","   ","   ","   ","   ","   "]
+  };
+  const titleStr = "Супер Сережа";
+  const gridH = 11;
+  let rawCols = Array(7).fill("");
+  for (const chChar of titleStr) {
+    const glyph = PIXEL_FONT[chChar] || PIXEL_FONT[' '];
+    for (let r = 0; r < 7; r++) rawCols[r] += glyph[r] + " ";
+  }
+  const gridW = rawCols[0].length + 4;
+  const grid = Array.from({ length: gridH }, () => Array(gridW).fill(0));
+  for (let r = 0; r < 7; r++) {
+    for (let c = 0; c < rawCols[r].length; c++) {
+      if (rawCols[r][c] === '1') grid[r + 2][c + 2] = 3;
+    }
+  }
+  for (let r = 1; r < gridH - 1; r++) {
+    for (let c = 1; c < gridW - 1; c++) {
+      if (grid[r][c] === 0) {
+        outer1: for (let dr = -1; dr <= 1; dr++) {
+          for (let dc = -1; dc <= 1; dc++) {
+            if (grid[r + dr][c + dc] === 3) { grid[r][c] = 2; break outer1; }
+          }
+        }
+      }
+    }
+  }
+  for (let r = 0; r < gridH; r++) {
+    for (let c = 0; c < gridW; c++) {
+      if (grid[r][c] === 0) {
+        outer2: for (let dr = -1; dr <= 1; dr++) {
+          for (let dc = -1; dc <= 1; dc++) {
+            const nr = r + dr, nc = c + dc;
+            if (nr >= 0 && nr < gridH && nc >= 0 && nc < gridW && grid[nr][nc] >= 2) {
+              grid[r][c] = 1; break outer2;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  const bannerNode = menuPropsNode.add(new Node3D('menuBanner3D'));
+  bannerNode.pos = [-3.1, 5.8, -1.2];
+  bannerNode.rot = [0.08, 0.14, 0];
+  const ps = 0.112;
+  for (let r = 0; r < gridH; r++) {
+    for (let c = 0; c < gridW; c++) {
+      const val = grid[r][c];
+      if (!val) continue;
+      const x = (c - gridW / 2) * ps;
+      const y = (gridH / 2 - r) * ps;
+      bannerNode.addBox(x, y, -0.14, ps*1.04, ps*1.04, 0.28, '#141111', { bevel: 0 });
+      if (val === 2) {
+        bannerNode.addBox(x, y, 0.04, ps*1.02, ps*1.02, 0.16, '#e02f16', { emissive: 0.3 });
+      } else if (val === 3) {
+        bannerNode.addBox(x, y, 0.10, ps*1.02, ps*1.02, 0.22, '#ffd800', { emissive: 0.55 });
+      }
+    }
+  }
+
+  // 3D Mousepad & Animated 3D Computer Mouse on Seryozha's Desk!
+  menuPropsNode.addBox(-3.95, 1.69, 1.38, 0.68, 0.04, 0.72, '#0284c7', { tex: 1 }); // Blue Mousepad
+  const mouse3D = menuPropsNode.add(new Node3D('introMouse3D'));
+  mouse3D.pos = [-3.95, 1.74, 1.38];
+  mouse3D.addBox(0, 0, 0, 0.28, 0.10, 0.20, '#e2e8f0', { tex: 7 });
+  mouse3D.addBox(0.08, 0.05, -0.04, 0.08, 0.03, 0.06, '#94a3b8');
+  mouse3D.addBox(0.08, 0.05, 0.04, 0.08, 0.03, 0.06, '#94a3b8');
+  window._introMouse3DNode = mouse3D;
+
+  // 3D Desktop Wallpaper Scene on the Front Glass of menuMonitor (Green Hills + Blue Sky + Moving 3D Cursor!)
+  const monGlass = menuPropsNode.add(new Node3D('monGlassWallpaper'));
+  monGlass.pos = [-5.4, 1.68, 0.55];
+  monGlass.rot = [0, 0.42, 0];
+  monGlass.addBox(0.34, 1.02, 0, 0.04, 0.52, 1.08, '#38bdf8', { emissive: 0.92 }); // Blue sky wallpaper
+  monGlass.addBox(0.35, 0.64, 0, 0.04, 0.36, 1.08, '#22c55e', { emissive: 0.88 }); // Green hill Bliss wallpaper
+  monGlass.addBox(0.36, 1.14, -0.28, 0.04, 0.14, 0.14, '#fde047', { emissive: 1.0 }); // Bright pixel Sun
+  const cur3D = monGlass.add(new Node3D('cursor3D'));
+  cur3D.pos = [0.37, 0.88, 0];
+  cur3D.addBox(0, 0, 0, 0.05, 0.14, 0.10, '#ffffff', { emissive: 1.0 });
+  window._introCursor3DNode = cur3D;
+
+  compileTreeBuffers(menuPropsNode);
+})();
+
+// 3D Particle & Motion-Trail Pool
+const particlesNode = new Node3D('particles');
+worldRoot.add(particlesNode);
+const particlePool = [];
+for (let i = 0; i < 65; i++) {
+  const p = new Node3D('p');
+  p.addBox(0, 0, 0, 0.22, 0.22, 0.22, '#fde047', { emissive: 0.9, bevel: 0 });
+  p.visible = false;
+  compileTreeBuffers(p);
+  particlesNode.add(p);
+  particlePool.push({ node: p, vx: 0, vy: 0, vz: 0, life: 0, maxLife: 1 });
+}
+
+// 3D Shockwave Ring Node (expands on Glasses Flash, Landing, and Tech Repair!)
+const shockwaveRingNode = new Node3D('shockwaveRing');
+for (let i = 0; i < 16; i++) {
+  const a = (i / 16) * Math.PI * 2;
+  shockwaveRingNode.addBox(Math.cos(a) * 1.2, 0, Math.sin(a) * 1.2, 0.38, 0.14, 0.38, '#ffec27', { emissive: 1.0, ry: -a });
+}
+shockwaveRingNode.visible = false;
+compileTreeBuffers(shockwaveRingNode);
+worldRoot.add(shockwaveRingNode);
+let shockwaveTimer = 0;
+
 function triggerShockwave(x, y, z, colorTint = [0, 0, 0]) {
   shockwaveRingNode.pos = [x, y + 0.2, z];
   shockwaveRingNode.scale = [0.2, 1.0, 0.2];
