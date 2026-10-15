@@ -1,0 +1,22 @@
+plugins {
+    id "com.android.application"
+}
+
+android {
+    namespace "com.superseryozha.game"
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.superseryozha.game"
+        minSdk 26
+        targetSdk 34
+        versionCode 14
+        versionName "9.3"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+}

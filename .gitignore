@@ -1,0 +1,20 @@
+# Built artifacts and Gradle caches
+.gradle/
+build/
+app/build/
+*.apk
+*.aab
+
+# Local SDK configuration
+local.properties
+
+# IDE & Editor files
+.idea/
+*.iml
+.vscode/
+.DS_Store
+
+# Temporary and backup files
+*.bak*
+*.tmp
+*.log
